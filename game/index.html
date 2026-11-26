@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solstice Ridge — a flight game</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0b1020; font-family: "Segoe UI", system-ui, sans-serif; }
+  #scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+  #status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+</style>
+<link rel="stylesheet" href="./src/hud.css">
+</head>
+<body>
+<canvas id="scene" aria-label="Solstice Ridge flight game"></canvas>
+
+<div id="hud" class="hidden">
+  <div id="heading-ribbon"><div id="heading-strip"></div><div id="heading-box">000</div><div id="heading-caret"></div></div>
+  <div id="speed-tape" class="tape"><div class="tape-window"><div id="speed-strip" class="tape-strip"></div></div><div id="speed-box" class="tape-box">0</div><div class="tape-unit">KT</div></div>
+  <div id="alt-tape" class="tape"><div class="tape-window"><div id="alt-strip" class="tape-strip"></div></div><div id="alt-box" class="tape-box">0</div><div class="tape-unit">FT</div><div id="vs-box">0</div></div>
+  <canvas id="attitude" width="150" height="150"></canvas>
+  <div id="gauges">
+    <div class="gauge"><span>THR</span><div class="bar"><div id="thr-fill"></div></div><b id="thr-num">0%</b></div>
+    <div class="gauge"><span>FUEL</span><div class="bar"><div id="fuel-fill"></div></div><b id="fuel-num">100%</b></div>
+    <div class="gauge"><span>HULL</span><div class="bar"><div id="hull-fill"></div></div><b id="hull-num">100%</b></div>
+    <div id="config-line"><span id="gear-lamp" class="lamp on">GEAR</span><span id="flap-lamp" class="lamp">FLAP</span><span id="brake-lamp" class="lamp">BRK</span></div>
+  </div>
+  <div id="mission-panel">
+    <div id="mission-name">FREE FLIGHT</div>
+    <div id="mission-objective">Take off and explore the ridge.</div>
+    <div id="mission-stats"><span id="mission-score">SCORE 0</span><span id="mission-time">00:00</span></div>
+  </div>
+  <div id="warnings"><div id="warn-stall" class="warn hidden">STALL</div><div id="warn-fuel" class="warn hidden">LOW FUEL</div><div id="warn-gear" class="warn hidden">GEAR UP</div></div>
+  <div id="banner" class="hidden"></div>
+  <div id="controls-hint">W/S throttle · ↑↓ pitch · ←→ bank · A/D rudder · F flaps · G gear · Space brake · C camera · P pause</div>
+</div>
+
+<div id="title-screen">
+  <div class="title-card">
+    <h1>SOLSTICE RIDGE</h1>
+    <p class="tagline">Golden-hour flying over one stubborn island. Mind your throttle, your turns, and your fuel.</p>
+    <div class="missions">
+      <button class="mission-card" data-mission="rings"><b>1 · Ring Runner</b><span>Thread 8 glowing rings over the ridge, in order, against the clock.</span></button>
+      <button class="mission-card" data-mission="landing"><b>2 · Short Final</b><span>You are on approach. Put the Kestrel on runway 27, soft and on the centreline.</span></button>
+      <button class="mission-card" data-mission="mail"><b>3 · Mail Run</b><span>Take off, snatch the mail sack at the harbour gate, deliver it to the ridge beacon, and land. Watch the fuel.</span></button>
+      <button class="mission-card" data-mission="free"><b>4 · Free Flight</b><span>No clock, no cargo. Just the island, the light, and the aeroplane.</span></button>
+    </div>
+    <p class="keys">W/S throttle · ↑↓ pitch · ←→ bank · A/D rudder · F flaps · G gear · Space brake · C camera · P pause · R restart<br>Mouse: hold and drag to steer, wheel for throttle. Click a mission or press 1–4.</p>
+  </div>
+</div>
+
+<div id="pause-screen" class="hidden"><div class="title-card small"><h2>PAUSED</h2><p>Press P to fly on, R to restart the mission, Esc for the menu.</p></div></div>
+<div id="end-screen" class="hidden"><div class="title-card small"><h2 id="end-title">MISSION COMPLETE</h2><p id="end-detail"></p><p id="end-score"></p><p>Press R to fly it again, Esc for the menu.</p></div></div>
+
+<p id="status" role="status" aria-live="polite"></p>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

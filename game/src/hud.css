@@ -1,0 +1,68 @@
+/* Solstice Ridge HUD: glass-cockpit tapes, heading ribbon, attitude ball,
+   gauges and mission panel. Lit green and amber on dark glass. */
+
+#hud { position: fixed; inset: 0; pointer-events: none; color: #b9ffd0; font-family: "Consolas", "SF Mono", monospace; }
+.hidden { display: none !important; }
+
+/* Heading ribbon across the top. */
+#heading-ribbon { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); width: 340px; height: 34px; overflow: hidden; background: rgba(8, 18, 14, 0.62); border: 1px solid rgba(125, 255, 176, 0.5); border-radius: 6px; }
+#heading-strip { position: absolute; top: 0; height: 100%; white-space: nowrap; font-size: 15px; line-height: 34px; color: #7dffb0; will-change: transform; }
+#heading-strip span { display: inline-block; width: 60px; text-align: center; }
+#heading-box { position: absolute; top: 3px; left: 50%; transform: translateX(-50%); background: #0d2b1a; border: 1px solid #7dffb0; border-radius: 4px; padding: 2px 10px; font-size: 17px; font-weight: bold; color: #eafff2; }
+#heading-caret { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 8px solid #ffb454; }
+
+/* Speed and altitude tapes. */
+.tape { position: absolute; top: 50%; transform: translateY(-50%); width: 74px; height: 300px; }
+#speed-tape { left: 18px; }
+#alt-tape { right: 18px; }
+.tape-window { position: absolute; inset: 0; overflow: hidden; background: rgba(8, 18, 14, 0.55); border: 1px solid rgba(125, 255, 176, 0.45); border-radius: 8px; }
+.tape-strip { position: absolute; left: 0; width: 100%; will-change: transform; }
+.tape-strip div { height: 30px; line-height: 30px; text-align: center; font-size: 15px; color: #9fe8bb; border-bottom: 1px solid rgba(125, 255, 176, 0.14); }
+.tape-box { position: absolute; top: 50%; transform: translateY(-50%); width: 100%; text-align: center; background: #0d2b1a; border: 1.5px solid #7dffb0; border-radius: 5px; font-size: 21px; font-weight: bold; color: #eafff2; padding: 3px 0; }
+.tape-unit { position: absolute; top: calc(50% + 24px); width: 100%; text-align: center; font-size: 12px; color: #ffb454; letter-spacing: 2px; }
+#vs-box { position: absolute; bottom: -30px; width: 100%; text-align: center; font-size: 14px; color: #7dd7ff; }
+
+/* Attitude indicator. */
+#attitude { position: absolute; left: 50%; top: 64%; transform: translate(-50%, -50%); opacity: 0.92; width: 120px; height: 120px; }
+
+/* Engine gauges, bottom left. */
+#gauges { position: absolute; left: 18px; bottom: 18px; width: 230px; background: rgba(8, 18, 14, 0.62); border: 1px solid rgba(125, 255, 176, 0.45); border-radius: 8px; padding: 10px 12px; }
+.gauge { display: flex; align-items: center; gap: 8px; margin: 5px 0; font-size: 13px; }
+.gauge span { width: 44px; color: #9fe8bb; }
+.gauge b { width: 44px; text-align: right; color: #eafff2; font-weight: bold; }
+.bar { flex: 1; height: 10px; background: rgba(255, 255, 255, 0.12); border-radius: 5px; overflow: hidden; }
+.bar div { height: 100%; width: 0%; background: linear-gradient(90deg, #37d67a, #a8ffb0); border-radius: 5px; }
+#fuel-fill { background: linear-gradient(90deg, #e8a13a, #ffd27d); }
+#hull-fill { background: linear-gradient(90deg, #d6503a, #ff9a7d); }
+#config-line { display: flex; gap: 6px; margin-top: 8px; }
+.lamp { flex: 1; text-align: center; font-size: 11px; letter-spacing: 1px; padding: 3px 0; border-radius: 4px; background: rgba(255, 255, 255, 0.08); color: #5f7a68; border: 1px solid rgba(255, 255, 255, 0.12); }
+.lamp.on { background: #14532d; color: #a8ffb0; border-color: #37d67a; box-shadow: 0 0 8px rgba(55, 214, 122, 0.55); }
+
+/* Mission panel, bottom right. */
+#mission-panel { position: absolute; right: 18px; bottom: 18px; width: 300px; background: rgba(8, 18, 14, 0.62); border: 1px solid rgba(125, 255, 176, 0.45); border-radius: 8px; padding: 10px 14px; }
+#mission-name { font-size: 15px; font-weight: bold; letter-spacing: 2px; color: #ffb454; }
+#mission-objective { font-size: 13.5px; line-height: 1.45; color: #dfffe9; margin: 4px 0 6px; font-family: "Segoe UI", system-ui, sans-serif; }
+#mission-stats { display: flex; justify-content: space-between; font-size: 14px; color: #9fe8bb; }
+#mission-score { color: #eafff2; font-weight: bold; }
+
+/* Warnings and banner. */
+#warnings { position: absolute; top: 64px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+.warn { background: rgba(120, 20, 8, 0.82); border: 1.5px solid #ff6b4a; color: #ffe2d9; font-size: 16px; font-weight: bold; letter-spacing: 2px; padding: 5px 14px; border-radius: 6px; animation: warnblink 0.7s steps(2) infinite; }
+@keyframes warnblink { 50% { opacity: 0.45; } }
+#banner { position: absolute; top: 26%; left: 50%; transform: translateX(-50%); font-size: 34px; font-weight: bold; letter-spacing: 3px; color: #eafff2; text-shadow: 0 2px 18px rgba(0, 0, 0, 0.75), 0 0 26px rgba(125, 255, 176, 0.65); }
+#controls-hint { position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); font-size: 12px; color: rgba(220, 255, 235, 0.55); white-space: nowrap; }
+
+/* Title and end screens. */
+#title-screen, #pause-screen, #end-screen { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(6, 10, 22, 0.38); font-family: "Segoe UI", system-ui, sans-serif; }
+.title-card { max-width: 760px; width: calc(100% - 48px); background: rgba(10, 16, 30, 0.88); border: 1px solid rgba(255, 180, 84, 0.55); border-radius: 14px; padding: 28px 34px; color: #eef4ff; box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55); }
+.title-card.small { max-width: 460px; text-align: center; }
+.title-card h1 { margin: 0 0 6px; font-size: 44px; letter-spacing: 5px; color: #ffd9a0; text-shadow: 0 0 24px rgba(255, 160, 60, 0.45); }
+.title-card h2 { margin: 0 0 8px; font-size: 28px; letter-spacing: 3px; color: #ffd9a0; }
+.tagline { margin: 0 0 18px; color: #c9d8f2; font-size: 16px; }
+.missions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.mission-card { text-align: left; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(157, 212, 232, 0.4); border-radius: 10px; padding: 12px 14px; color: #eef4ff; cursor: pointer; font-family: inherit; }
+.mission-card:hover { background: rgba(255, 180, 84, 0.16); border-color: #ffb454; }
+.mission-card b { display: block; font-size: 17px; margin-bottom: 4px; color: #ffd9a0; }
+.mission-card span { font-size: 13.5px; line-height: 1.4; color: #c9d8f2; }
+.keys { margin: 16px 0 0; font-size: 13px; line-height: 1.6; color: #9fb4d8; }
+#end-score { font-size: 22px; font-weight: bold; color: #a8ffb0; }
